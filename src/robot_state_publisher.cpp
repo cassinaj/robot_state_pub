@@ -87,12 +87,10 @@ namespace robot_state_pub{
     // loop over all joints
     for (map<string, double>::const_iterator jnt=joint_positions.begin(); jnt != joint_positions.end(); jnt++){
       std::map<std::string, SegmentPair>::const_iterator seg = segments_.find(jnt->first);
-      ROS_INFO("Joint %s: %f", jnt->first.c_str(), jnt->second);
+      //ROS_INFO("Joint %s: %f", jnt->first.c_str(), jnt->second);
       if (seg != segments_.end()){
         tf::transformKDLToTF(seg->second.segment.pose(jnt->second), tf_transform);    
-        //tf_transform.frame_id_ = seg->second.root;
 	tf_transform.frame_id_ = tf::resolve(tf_prefix, seg->second.root);
-        //tf_transform.child_frame_id_ = seg->second.tip;
 	tf_transform.child_frame_id_ = tf::resolve(tf_prefix, seg->second.tip);
         tf_transforms.push_back(tf_transform);
       }
@@ -112,9 +110,7 @@ namespace robot_state_pub{
     // loop over all fixed segments
     for (map<string, SegmentPair>::const_iterator seg=segments_fixed_.begin(); seg != segments_fixed_.end(); seg++){
       tf::transformKDLToTF(seg->second.segment.pose(0), tf_transform);    
-      //tf_transform.frame_id_ = seg->second.root;
       tf_transform.frame_id_ = tf::resolve(tf_prefix, seg->second.root);
-      //tf_transform.child_frame_id_ = seg->second.tip;
       tf_transform.child_frame_id_ = tf::resolve(tf_prefix, seg->second.tip);
       tf_transforms.push_back(tf_transform);
     }
