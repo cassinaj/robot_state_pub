@@ -74,7 +74,7 @@ public:
    * \param time The time at which the joint positions were recorded
    */
   void publishTransforms(const std::map<std::string, double>& joint_positions, const ros::Time& time, const std::string& tf_prefix);
-  void publishFixedTransforms(const std::string& tf_prefix);
+  void publishFixedTransforms(const std::string& tf_prefixm, const ros::Time& time);
 
   /** Get transforms to tf 
    * \param joint_positions A map of joint names and joint positions. 
