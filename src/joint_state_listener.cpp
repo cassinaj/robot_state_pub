@@ -78,7 +78,7 @@ JointStateListener::~JointStateListener()
 
 void JointStateListener::callbackFixedJoint(const ros::TimerEvent& e)
 {
-  state_publisher_.publishFixedTransforms(tf_prefix_);
+  state_publisher_.publishFixedTransforms(tf_prefix_, ros::Time::now());
 }
 
 void JointStateListener::callbackJointState(const JointStateConstPtr& state)
